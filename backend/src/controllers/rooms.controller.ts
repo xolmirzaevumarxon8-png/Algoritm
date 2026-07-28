@@ -23,7 +23,7 @@ export const getRooms = async (req: Request, res: Response) => {
 
 export const getRoomById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const room = await prisma.rooms.findFirst({
       where: { id, is_deleted: false },
       include: {
@@ -42,7 +42,7 @@ export const getRoomById = async (req: Request, res: Response) => {
 
 export const getRoomSchedule = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const groups = await prisma.groups.findMany({
       where: { room_id: id, is_deleted: false },
       include: {
@@ -69,7 +69,7 @@ export const createRoom = async (req: Request, res: Response) => {
         include: { branches_managed: true }
       });
       if (user && user.branches_managed.length > 0) {
-        branch_id = user.branches_managed[0].id;
+        branch_id = user.branches_managed[0]?.id;
       }
     }
 
@@ -98,7 +98,7 @@ export const createRoom = async (req: Request, res: Response) => {
 
 export const updateRoom = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     let { name, branch_id, capacity } = req.body;
 
     if (req.user?.role === 'ADMIN') {
@@ -107,7 +107,7 @@ export const updateRoom = async (req: Request, res: Response) => {
         include: { branches_managed: true }
       });
       if (user && user.branches_managed.length > 0) {
-        branch_id = user.branches_managed[0].id;
+        branch_id = user.branches_managed[0]?.id;
       }
     }
 
@@ -133,7 +133,7 @@ export const updateRoom = async (req: Request, res: Response) => {
 
 export const deleteRoom = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const room = await prisma.rooms.update({ 
       where: { id },
       data: { is_deleted: true }

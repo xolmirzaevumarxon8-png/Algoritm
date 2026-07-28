@@ -71,7 +71,7 @@ export const createDirector = async (req: Request, res: Response) => {
 
 export const updateDirector = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const { phone } = req.body;
 
     if (!phone) {
@@ -99,7 +99,7 @@ export const updateDirector = async (req: Request, res: Response) => {
 
 export const deleteDirector = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
 
     await prisma.users.delete({
       where: { id }

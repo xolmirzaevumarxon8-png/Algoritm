@@ -81,7 +81,7 @@ export const createBranch = async (req: Request, res: Response) => {
 
 export const updateBranch = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     const { name, address } = req.body;
     const branch = await prisma.branches.update({
       where: { id },
@@ -95,7 +95,7 @@ export const updateBranch = async (req: Request, res: Response) => {
 
 export const deleteBranch = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     await prisma.branches.delete({ where: { id } });
     res.status(200).json({ message: 'Branch deleted' });
   } catch (error) {

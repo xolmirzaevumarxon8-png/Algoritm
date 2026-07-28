@@ -249,7 +249,8 @@ export const assignStudent = async (req: Request, res: Response) => {
 
 export const removeStudentFromGroup = async (req: Request, res: Response) => {
   try {
-    const { id, studentId } = req.params; // groupId, studentId
+    const id = req.params.id as string;
+    const studentId = req.params.studentId as string;
 
     await prisma.student_groups.deleteMany({
       where: { student_id: studentId, group_id: id }

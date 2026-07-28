@@ -6,6 +6,9 @@ interface User {
   username: string;
   firstName: string;
   lastName: string;
+  fullname?: string;
+  phone?: string;
+  branchName?: string;
   role: 'SUPER_ADMIN' | 'DIRECTOR' | 'ADMIN' | 'TEACHER' | 'CASHIER' | 'CALL_CENTER' | 'STUDENT' | 'PARENT';
   branchId?: string | null;
 }

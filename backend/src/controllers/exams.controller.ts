@@ -119,7 +119,7 @@ export const submitExam = async (req: Request, res: Response) => {
     // Calculate score
     let score = 0;
     for (let i = 0; i < exam.questions.length; i++) {
-      if (answers[i] === exam.questions[i].correct_index) {
+      if (answers[i] === exam.questions[i]?.correct_index) {
         score++;
       }
     }

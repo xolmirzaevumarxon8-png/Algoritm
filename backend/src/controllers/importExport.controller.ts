@@ -52,8 +52,8 @@ export const importStudents = async (req: Request, res: Response) => {
     }
 
     const wb = xlsx.read(req.file.buffer, { type: 'buffer' });
-    const sheetName = wb.SheetNames[0];
-    const ws = wb.Sheets[sheetName];
+    const sheetName = wb.SheetNames[0] || '';
+    const ws = wb.Sheets[sheetName] || {};
     const data: any[] = xlsx.utils.sheet_to_json(ws);
 
     let branchId = null;

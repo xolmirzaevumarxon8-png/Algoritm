@@ -260,7 +260,7 @@ const Students = () => {
                   </td>
                 </tr>
               ) : (
-                filteredStudents.map((student) => (
+                filteredStudents.map((student: any) => (
                   <tr key={student.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
                     <td className="p-4">
                       <div className="flex items-center space-x-3">

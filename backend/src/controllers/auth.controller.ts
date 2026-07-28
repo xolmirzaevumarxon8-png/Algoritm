@@ -72,7 +72,7 @@ export const login = async (req: Request, res: Response) => {
 
     // 3. Agar User topilmasa, O'quvchilar (students) jadvalidan qidiramiz
     if (matchedUsers.length === 0) {
-      const allStudents = await prisma.students.findMany({ include: { parent: true } });
+      const allStudents = await prisma.students.findMany({ include: { parent: true, branch: true } });
       const matchedStudents = allStudents.filter(s => 
         s.phone === username || 
         s.fullname.toLowerCase().includes(username.toLowerCase())

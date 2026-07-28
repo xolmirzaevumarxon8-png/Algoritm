@@ -300,8 +300,8 @@ export const getParentChildren = async (req: Request, res: Response) => {
       const totalDays = c.attendance.length;
       const attendancePercent = totalDays > 0 ? Math.round((presentDays / totalDays) * 100) : 0;
 
-      const grades = c.ratings.map(r => r.score);
-      const avgGrade = grades.length > 0 ? Math.round(grades.reduce((a,b)=>a+b,0) / grades.length) : 0;
+      const grades = c.ratings.map(r => r.score || 0);
+      const avgGrade = grades.length > 0 ? Math.round(grades.reduce((a, b) => a + b, 0) / grades.length) : 0;
 
       return {
         id: c.id,
@@ -313,7 +313,7 @@ export const getParentChildren = async (req: Request, res: Response) => {
         avgGrade: avgGrade,
         status: 'Paid',
         rank: 1,
-        xp: grades.reduce((a,b)=>a+b, 0) * 10,
+        xp: grades.reduce((a, b) => a + b, 0) * 10,
         attendanceDetails: c.attendance.slice(-10).reverse(), // latest 10
         ratingsDetails: c.ratings.slice(-10).reverse() // latest 10
       };
@@ -730,10 +730,12 @@ export const getStudentWeeklySchedule = async (req: Request, res: Response) => {
       const startTimeStr = s.start_time ? new Date(s.start_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'UTC' }) : '';
       const endTimeStr = s.end_time ? new Date(s.end_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'UTC' }) : '';
 
+      const dayNum = s.weekday || 1;
+
       return {
         id: s.id,
         weekday: s.weekday,
-        weekdayName: weekdayNames[s.weekday] || 'Kun',
+        weekdayName: weekdayNames[dayNum] || 'Kun',
         time: `${startTimeStr} - ${endTimeStr}`,
         courseName: s.group?.course?.name || 'Kurs',
         groupName: s.group?.name || 'Guruh',

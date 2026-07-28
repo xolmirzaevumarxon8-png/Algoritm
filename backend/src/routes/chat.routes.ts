@@ -203,7 +203,7 @@ router.get('/contacts', authenticateToken, async (req, res) => {
 // Dynamic messages endpoint
 router.get('/messages/:contactId', authenticateToken, async (req, res) => {
   try {
-    const { contactId } = req.params;
+    const contactId = req.params.contactId as string;
     const userId = req.user?.userId;
 
     if (!userId) return res.status(401).json({ message: 'Unauthorized' });
@@ -257,7 +257,7 @@ router.get('/messages/:contactId', authenticateToken, async (req, res) => {
 // Save new message to DB
 router.post('/messages/:contactId', authenticateToken, async (req, res) => {
   try {
-    const { contactId } = req.params;
+    const contactId = req.params.contactId as string;
     const userId = req.user?.userId;
     const { text } = req.body;
 

@@ -171,7 +171,7 @@ const Groups = () => {
               {loading ? (
                 <tr><td colSpan={6} className="p-8 text-center text-slate-500 dark:text-slate-400">Loading groups...</td></tr>
               ) : (
-                filteredGroups.map((group) => (
+                filteredGroups.map((group: any) => (
                   <tr key={group.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
                     <td className="p-4">
                       <p className="font-bold text-slate-800 dark:text-white">{group.name}</p>

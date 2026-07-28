@@ -132,7 +132,7 @@ export const updateTeacherKPI = async (req: Request, res: Response) => {
 
 export const deleteTeacher = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = req.params.id as string;
     
     const teacher = await prisma.teachers.findUnique({
       where: { id },
@@ -153,7 +153,7 @@ export const deleteTeacher = async (req: Request, res: Response) => {
       data: { is_active: false }
     });
     
-    await logAction(req.user?.userId, 'DELETE', 'TEACHER', `O'qituvchi arxivlandi: ${teacher.user.fullname}`);
+    await logAction(req.user?.userId, 'DELETE', 'TEACHER', `O'qituvchi arxivlandi: ${teacher.user?.fullname || 'O\'qituvchi'}`);
     res.status(200).json({ message: 'Teacher deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Error deleting teacher', error });
