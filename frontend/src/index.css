@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #3b82f6;
+  --color-primary-dark: #2563eb;
+  --color-secondary: #64748b;
+  --color-background: #f8fafc;
+  --color-surface: #ffffff;
+}
+
+body {
+  @apply bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+}
+
+/* Global UI Fixes: Prevent unwanted focus rings and text selection on mouse click */
+* {
+  caret-color: transparent;
+}
+
+*:focus:not(:focus-visible) {
+  outline: none !important;
+}
+
+/* Ensure clickable UI elements do not show text cursor or get accidentally selected */
+button, 
+a, 
+[role="button"],
+select,
+.sidebar-item,
+.nav-item,
+tr,
+.card {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Restore normal text selection and caret for inputs/textareas */
+input,
+textarea,
+[contenteditable="true"] {
+  user-select: auto;
+  -webkit-user-select: auto;
+  caret-color: auto;
+}
