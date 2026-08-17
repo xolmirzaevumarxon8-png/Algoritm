@@ -30,6 +30,35 @@ const StudentExams = () => {
     }
   };
 
+  const [timeLeft, setTimeLeft] = useState<number>(0);
+
+  useEffect(() => {
+    if (activeExam && !isSubmitted) {
+      const durationSeconds = (activeExam.duration || 30) * 60;
+      setTimeLeft(durationSeconds);
+      
+      const timer = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 1) {
+            clearInterval(timer);
+            toast.error("Imtihon vaqti tugadi! Natijangiz avtomatik topshirilmoqda...");
+            handleSubmit();
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+
+      return () => clearInterval(timer);
+    }
+  }, [activeExam]);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
   const handleStart = (exam: any) => {
     setActiveExam(exam);
     setIsSubmitted(false);
@@ -69,8 +98,8 @@ const StudentExams = () => {
             <h1 className="text-xl font-bold dark:text-white">{activeExam.title}</h1>
             <p className="text-sm text-slate-500 dark:text-slate-400">Savollarga e'tibor bilan javob bering</p>
           </div>
-          <div className="flex items-center text-red-500 font-bold bg-red-50 dark:bg-red-500/10 px-4 py-2 rounded-xl">
-            <Clock className="w-5 h-5 mr-2 animate-pulse" /> {activeExam.duration} daqiqa
+          <div className="flex items-center text-red-500 font-bold bg-red-50 dark:bg-red-500/10 px-4 py-2 rounded-xl text-lg tracking-wider">
+            <Clock className="w-5 h-5 mr-2 animate-pulse" /> {formatTime(timeLeft)}
           </div>
         </div>
 

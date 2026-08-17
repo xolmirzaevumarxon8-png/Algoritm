@@ -267,9 +267,24 @@ const TeacherGroups = () => {
 
             {activeTab === 'attendance' && (
               <div className="p-6">
-                <div className="flex justify-between items-center mb-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                   <h3 className="text-lg font-bold">Bugungi dars davomati</h3>
-                  <button onClick={saveAttendance} disabled={attendanceMutation.isPending} className="px-5 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-bold hover:bg-emerald-700 disabled:opacity-50">{attendanceMutation.isPending ? 'Saqlanmoqda...' : 'Saqlash'}</button>
+                  <div className="flex space-x-3">
+                    <button 
+                      onClick={() => {
+                        const newRecords = { ...attendanceRecords };
+                        students.forEach((s: any) => {
+                          newRecords[s.id] = { ...(newRecords[s.id] || { grade: '' }), status: 'Keldi' };
+                        });
+                        setAttendanceRecords(newRecords);
+                        toast.success("Barcha o'quvchilar 'Keldi' deb belgilandi");
+                      }}
+                      className="px-4 py-2.5 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800 rounded-xl text-sm font-bold hover:bg-blue-100 transition-all"
+                    >
+                      ✓ Barchani keldi belgilash
+                    </button>
+                    <button onClick={saveAttendance} disabled={attendanceMutation.isPending} className="px-5 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-bold hover:bg-emerald-700 disabled:opacity-50">{attendanceMutation.isPending ? 'Saqlanmoqda...' : 'Saqlash'}</button>
+                  </div>
                 </div>
                 <div className="space-y-4">
                   {isLoadingGroup ? (

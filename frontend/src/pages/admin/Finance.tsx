@@ -670,6 +670,7 @@ const Finance: React.FC = () => {
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-slate-500 font-medium">O'quvchi F.I.SH.:</span>
+                <span className="text-slate-500 font-medium">O'quvchi (Talaba):</span>
                 <span className="font-bold text-slate-800 dark:text-slate-100">{printedReceipt.studentName}</span>
               </div>
               <div className="flex justify-between items-center">
@@ -680,7 +681,7 @@ const Finance: React.FC = () => {
                 <span className="text-slate-500 font-medium">To'lov turi:</span>
                 <span className="font-bold text-slate-800 dark:text-slate-100">{printedReceipt.method}</span>
               </div>
-              <div className="flex justify-between items-center pt-3 border-t border-slate-100 dark:border-slate-800">
+              <div className="flex justify-between items-center pt-3 border-t border-slate-200 dark:border-slate-700">
                 <span className="text-slate-800 dark:text-white font-bold text-base">To'langan summa:</span>
                 <span className="text-xl font-black text-emerald-600 dark:text-emerald-400">
                   {Number(printedReceipt.amount).toLocaleString()} UZS
@@ -692,7 +693,7 @@ const Finance: React.FC = () => {
               </div>
             </div>
 
-            <div className="pt-4 border-t border-dashed border-slate-200 dark:border-slate-800 flex justify-between items-center">
+            <div className="pt-4 border-t border-dashed border-slate-200 dark:border-slate-800 flex justify-between items-center print:hidden">
               <button 
                 onClick={() => setPrintedReceipt(null)}
                 className="px-5 py-2.5 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-2xl font-bold text-sm"
